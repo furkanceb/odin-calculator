@@ -26,3 +26,14 @@ console.log(substract(9,3));
 console.log(multiply(5,2));
 console.log(divide(8,2));
 console.log(operate(6,3,divide));
+
+const screen=document.querySelector(".screen-child");
+let numberElement=document.querySelectorAll(".number");
+numberElement.forEach(element=>{
+    element.addEventListener('click',(event) => {
+    let number=document.createElement('p');
+    
+    number.textContent=element.textContent;  
+        screen.appendChild(number);
+        console.log(element.textContent);});
+});
