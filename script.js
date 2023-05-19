@@ -102,13 +102,19 @@ divideButton.addEventListener('click',(event)=>{
 
 let operateButton=document.querySelector(".operate");
 operateButton.addEventListener('click',(event)=>{
+    if (!operator) {
+        console.error("Operator is missing!");
+        return; // Stop execution if operator is missing
+      }
     console.log(operate(firstNumber,secondNumber,operator));
     result=operate(firstNumber,secondNumber,operator);
-    
+    let resultElement=document.createElement("p");
+    resultElement.textContent=result;
     operatorIsClicked=false;
     firstNumber=result;
     secondNumber=0;
     firstSmallNumber=0;
     secondSmallNumber=0;
+    screen.replaceChildren(resultElement);
 });
 
