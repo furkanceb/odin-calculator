@@ -22,7 +22,7 @@ function multiply(firstNumber,secondNumber){
 }
 
 function divide(firstNumber,secondNumber){
-    return firstNumber/secondNumber;
+    return Math.round(firstNumber/secondNumber*100)/100;
 }
 
 function operate(firstNumber,secondNumber,operator){
