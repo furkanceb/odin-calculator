@@ -1,10 +1,13 @@
-let firstNumber;
+let firstNumber=0;
 let secondNumber;
 let operator;
 let operatorIsClicked=false;
 let firstSmallNumber=0;
 let secondSmallNumber=0;
-let result=0;
+let result;
+
+let resultElement=document.createElement("p");
+resultElement.textContent=0;
 
 function add(firstNumber,secondNumber){
     return firstNumber+secondNumber;
@@ -32,6 +35,7 @@ console.log(divide(8,2));
 console.log(operate(6,3,divide));
 
 const screen=document.querySelector(".screen-child");
+screen.appendChild(resultElement);
 
 //any operator clicked
 let operation=document.querySelectorAll(".operator");
@@ -53,10 +57,13 @@ numberElement.forEach(element=>{
     element.addEventListener('click',(event) => {
     let number=document.createElement('p');
     number.textContent=element.textContent;
+    
     screen.appendChild(number);
     
     //display numbers
     if(!operatorIsClicked && firstNumber!==result){
+        if(screen.contains(resultElement)){
+            screen.removeChild(resultElement);}
         console.log("operatore basılmadı")
         let firstBigNumber=number.textContent;
         firstNumber=Number(firstSmallNumber+firstBigNumber);
@@ -108,7 +115,6 @@ operateButton.addEventListener('click',(event)=>{
       }
     console.log(operate(firstNumber,secondNumber,operator));
     result=operate(firstNumber,secondNumber,operator);
-    let resultElement=document.createElement("p");
     resultElement.textContent=result;
     operatorIsClicked=false;
     firstNumber=result;
@@ -117,4 +123,22 @@ operateButton.addEventListener('click',(event)=>{
     secondSmallNumber=0;
     screen.replaceChildren(resultElement);
 });
+
+function allClear(){
+    firstNumber=0;
+    secondNumber;
+    operator=null;
+    operatorIsClicked=false;
+    firstSmallNumber=0;
+    secondSmallNumber=0;
+    result=null;
+    resultElement.textContent=0;
+    screen.replaceChildren(resultElement);
+}
+
+let allClearButton=document.querySelector(".all-clear");
+allClearButton.addEventListener('click',()=>{
+    allClear();
+});
+
 
