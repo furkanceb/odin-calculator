@@ -4,6 +4,7 @@ let operator;
 let operatorIsClicked=false;
 let firstSmallNumber=0;
 let secondSmallNumber=0;
+let result=0;
 
 function add(firstNumber,secondNumber){
     return firstNumber+secondNumber;
@@ -55,25 +56,18 @@ numberElement.forEach(element=>{
     screen.appendChild(number);
     
     //display numbers
-    if(!operatorIsClicked){
-        
+    if(!operatorIsClicked && firstNumber!==result){
         console.log("operatore basılmadı")
-        
         let firstBigNumber=number.textContent;
-        
         firstNumber=Number(firstSmallNumber+firstBigNumber);
-        
         console.log("realNumber:",firstNumber);
         console.log("smallNumber:",firstSmallNumber);
         console.log("bigNumber",firstBigNumber);
         firstSmallNumber=firstNumber;}
     else{
         console.log("equal operatore basılmadı")
-        
         let secondBigNumber=number.textContent;
-        
         secondNumber=Number(secondSmallNumber+secondBigNumber);
-        
         console.log("realNumber:",secondNumber);
         console.log("smallNumber:",secondSmallNumber);
         console.log("bigNumber",secondBigNumber);
@@ -108,8 +102,13 @@ divideButton.addEventListener('click',(event)=>{
 
 let operateButton=document.querySelector(".operate");
 operateButton.addEventListener('click',(event)=>{
-    operatorIsClicked=false;
     console.log(operate(firstNumber,secondNumber,operator));
-
+    result=operate(firstNumber,secondNumber,operator);
+    
+    operatorIsClicked=false;
+    firstNumber=result;
+    secondNumber=0;
+    firstSmallNumber=0;
+    secondSmallNumber=0;
 });
 
