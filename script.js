@@ -1,6 +1,9 @@
-let firstNumber=5;
-let secondNumber=3;
+let firstNumber;
+let secondNumber;
 let operator;
+let operatorIsClicked=false;
+let firstSmallNumber=0;
+let secondSmallNumber=0;
 
 function add(firstNumber,secondNumber){
     return firstNumber+secondNumber;
@@ -29,37 +32,84 @@ console.log(operate(6,3,divide));
 
 const screen=document.querySelector(".screen-child");
 
-let numberElement=document.querySelectorAll(".number");
-numberElement.forEach(element=>{
-    element.addEventListener('click',(event) => {
-    let number=document.createElement('p');
-    
-    number.textContent=element.textContent;  
-        screen.appendChild(number);
-        console.log(element.textContent);});
+//any operator clicked
+let operation=document.querySelectorAll(".operator");
+operation.forEach(element =>{
+    element.addEventListener('click',()=>{
+        operatorIsClicked=true;
+        console.log("operatore basıldı")
+        let operatorElement=document.createElement('p');
+        operatorElement.textContent=element.textContent;
+        screen.appendChild(operatorElement);
+    } 
+    );
 });
 
+
+let numberElement=document.querySelectorAll(".number");
+numberElement.forEach(element=>{
+    //click number buttons
+    element.addEventListener('click',(event) => {
+    let number=document.createElement('p');
+    number.textContent=element.textContent;
+    screen.appendChild(number);
+    
+    //display numbers
+    if(!operatorIsClicked){
+        
+        console.log("operatore basılmadı")
+        
+        let firstBigNumber=number.textContent;
+        
+        firstNumber=Number(firstSmallNumber+firstBigNumber);
+        
+        console.log("realNumber:",firstNumber);
+        console.log("smallNumber:",firstSmallNumber);
+        console.log("bigNumber",firstBigNumber);
+        firstSmallNumber=firstNumber;}
+    else{
+        console.log("equal operatore basılmadı")
+        
+        let secondBigNumber=number.textContent;
+        
+        secondNumber=Number(secondSmallNumber+secondBigNumber);
+        
+        console.log("realNumber:",secondNumber);
+        console.log("smallNumber:",secondSmallNumber);
+        console.log("bigNumber",secondBigNumber);
+        secondSmallNumber=secondNumber;
+    }    
+    });
+    
+});
+
+
+
 let addButton=document.querySelector(".add");
-addButton.addEventListener('click',(evevnt)=>{
+addButton.addEventListener('click',(event)=>{
     operator=add;
+
 });
 
 let substractButton=document.querySelector(".substract");
-substractButton.addEventListener('click',(evevnt)=>{
+substractButton.addEventListener('click',(event)=>{
     operator=substract;
 });
 
 let multiplyButton=document.querySelector(".multiply");
-multiplyButton.addEventListener('click',(evevnt)=>{
+multiplyButton.addEventListener('click',(event)=>{
     operator=multiply;
 });
 
 let divideButton=document.querySelector(".divide");
-divideButton.addEventListener('click',(evevnt)=>{
+divideButton.addEventListener('click',(event)=>{
     operator=divide;
 });
 
 let operateButton=document.querySelector(".operate");
-operateButton.addEventListener('click',(evevnt)=>{
+operateButton.addEventListener('click',(event)=>{
+    operatorIsClicked=false;
     console.log(operate(firstNumber,secondNumber,operator));
+
 });
+
