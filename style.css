@@ -1,3 +1,6 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 html {
     box-sizing: border-box;
   }
@@ -43,19 +46,15 @@ body{
     font-size: 50px;
     margin: 0;
     padding: 0 0;
-  
-    
-}
-
-.screen-numbers{
+   
 }
 
 .screen-child{
-    
     display: flex;
     margin: 20px 24px 0 20px;
     overflow: hidden;
    justify-content: flex-end;
+   font-family: 'Orbitron', 'sans-serif';
 }
 
 
