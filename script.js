@@ -5,6 +5,7 @@ let operatorIsClicked=false;
 let firstSmallNumber=0;
 let secondSmallNumber=0;
 let result;
+let operaterClickCounter=0;
 
 let resultElement=document.createElement("p");
 resultElement.textContent=0;
@@ -28,12 +29,8 @@ function divide(firstNumber,secondNumber){
 function operate(firstNumber,secondNumber,operator){
     return operator(firstNumber,secondNumber);
 }
-console.log(add(3,6));
-console.log(substract(9,3));
-console.log(multiply(5,2));
-console.log(divide(8,2));
-console.log(operate(6,3,divide));
 
+//Display zero as inital value
 const screen=document.querySelector(".screen-child");
 screen.appendChild(resultElement);
 
@@ -44,8 +41,18 @@ operation.forEach(element =>{
         operatorIsClicked=true;
         console.log("operatore basıldı")
         let operatorElement=document.createElement('p');
+        operatorElement.id="operatorElement";
         operatorElement.textContent=element.textContent;
-        screen.appendChild(operatorElement);
+        
+        //Change the operator if multiple operators are entered in a row
+        if(operaterClickCounter>0){
+            screen.replaceChild(operatorElement,screen.lastChild);
+        }
+        else{
+            screen.appendChild(operatorElement);
+        }
+        operaterClickCounter++;
+        
     } 
     );
 });
@@ -71,6 +78,7 @@ numberElement.forEach(element=>{
         console.log("smallNumber:",firstSmallNumber);
         console.log("bigNumber",firstBigNumber);
         firstSmallNumber=firstNumber;}
+     
     else{
         console.log("equal operatore basılmadı")
         let secondBigNumber=number.textContent;
@@ -113,15 +121,23 @@ operateButton.addEventListener('click',(event)=>{
         console.error("Operator is missing!");
         return; // Stop execution if operator is missing
       }
+   
+    if(secondNumber!==undefined){ //Do the operation only if the second number enterd
     console.log(operate(firstNumber,secondNumber,operator));
     result=operate(firstNumber,secondNumber,operator);
     resultElement.textContent=result;
     operatorIsClicked=false;
     firstNumber=result;
-    secondNumber=0;
+    secondNumber=undefined;
     firstSmallNumber=0;
     secondSmallNumber=0;
     screen.replaceChildren(resultElement);
+    operaterClickCounter=0;
+    }
+    
+    else{
+        alert("Waiting for the second number!");
+    }
 });
 
 function allClear(){
@@ -134,6 +150,7 @@ function allClear(){
     result=null;
     resultElement.textContent=0;
     screen.replaceChildren(resultElement);
+    operaterClickCounter=0;
 }
 
 let allClearButton=document.querySelector(".all-clear");
